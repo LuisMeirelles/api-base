@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: 'nestjs'
+    container_name: 'app'
     tty: true
     ports:
       - '3000:3000'
@@ -12,3 +12,12 @@ services:
       - .:/app
     command: >
       sh -c "npm run start:dev"
+
+  db:
+    image: 'mysql:8'
+    container_name: 'db'
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
