@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import {dirname} from 'node:path';
 
 @Module({
   imports: [
@@ -15,9 +14,9 @@ import {dirname} from 'node:path';
         username: 'root',
         password: configService.get<string>('MYSQL_ROOT_PASSWORD'),
         database: 'api_base',
-        entities: [dirname('.') + '/**/entities/*.entity{.ts,.js}']
+        autoLoadEntities: true
       }),
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
   ],
 })
