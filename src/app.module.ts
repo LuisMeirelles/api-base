@@ -9,16 +9,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'mysql',
-        host: 'db',
-        port: 3306,
-        username: 'root',
-        password: configService.get<string>('MYSQL_ROOT_PASSWORD'),
-        database: 'api_base',
-        autoLoadEntities: true
+        host: configService.get<string>('DB_HOST'),
+        port: configService.get<number>('DB_PORT'),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_DATABASE'),
+        autoLoadEntities: true,
       }),
       inject: [ConfigService],
     }),
   ],
 })
-export class AppModule {
-}
+export class AppModule {}
